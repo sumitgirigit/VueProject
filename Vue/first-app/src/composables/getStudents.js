@@ -1,5 +1,4 @@
 
-//import { ref } from 'vue'
 import { projectFireStore } from '../firebase/config'
 
 const getStudents = () => {
