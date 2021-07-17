@@ -1,62 +1,75 @@
 <template>
   <div>
-    <h1> Welcome to Vue </h1>
-    <v-data-table
-      :headers="headers"
-      :items="desserts"
-      class="elevation-1"
-    ></v-data-table>
+    <v-card
+    flat
+    height="200px"
+    tile
+  >
+    <v-toolbar 
+      color= #21c4da
+      dense
+    >
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Vuetify</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn>
+    </v-toolbar>
+  </v-card>
+
+    <h1 class="header"> Vue App </h1>
+    <HelloWorld />
+    
+    <StudentsRecord class="studentrecord"/>
   </div>
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld';
-import { projectFireStore } from './firebase/config'
+import HelloWorld from './components/HelloWorld';
+import StudentsRecord from './components/StudentsRecord';
+//import { projectFireStore } from './firebase/config'
 
 export default {
   name: 'App',
-
   components: {
-
+    HelloWorld,
+    StudentsRecord
   },
 
   data: function () {
     return {
       count: 0,
-      studentsRecord: {},
-      error: null,
-      headers: [
-          {
-            text: 'Roll No.',
-            align: 'start',
-            sortable: false,
-            value: 'roll',
-          },
-          { text: 'Name', value: 'name' },
-          { text: 'Department', value: 'department' },
-        ],
-      desserts: [
-      ],
     }
   },
 
-  async mounted() {
-     try {          
+  mounted() {
+    console.log("App Mounted");
 
-          const res = await projectFireStore.collection('students').get()
-          this.studentsRecords = res.docs
-          console.log(this.studentsRecords)
-          this.studentsRecords.map( doc => {
-              console.log(doc.data())
-              this.desserts.push(doc.data());
-          })
-          console.log(this.desserts);
-        } catch (err) {
-            
-          this.error = err.message
-          console.log(this.error)
-
-        }
   },
 };
 </script>
+
+<style>
+.header{
+  text-align: center;
+  top: 10px;
+}
+
+.studentrecord {
+  width: 50%;
+  margin: 0 auto;
+  border: 1px solid rgb(145, 142, 142);
+}
+
+.theme--light.v-toolbar.v-sheet {
+    background-color: #21c4da;
+}
+</style>
