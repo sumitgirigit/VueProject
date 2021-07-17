@@ -1,40 +1,62 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App Sumit"/>
+  <div>
+    <h1> Welcome to Vue </h1>
+    <v-data-table
+      :headers="headers"
+      :items="desserts"
+      class="elevation-1"
+    ></v-data-table>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import getStudents from './composables/getStudents'
+//import HelloWorld from './components/HelloWorld';
+import { projectFireStore } from './firebase/config'
 
 export default {
   name: 'App',
+
   components: {
-    HelloWorld
+
   },
 
-  mounted() {
-    console.log("Mounted");
-    const { load } = getStudents();
-    load();
+  data: function () {
+    return {
+      count: 0,
+      studentsRecord: {},
+      error: null,
+      headers: [
+          {
+            text: 'Roll No.',
+            align: 'start',
+            sortable: false,
+            value: 'roll',
+          },
+          { text: 'Name', value: 'name' },
+          { text: 'Department', value: 'department' },
+        ],
+      desserts: [
+      ],
+    }
   },
 
-  methods: {
-    
-  }
+  async mounted() {
+     try {          
 
-}
+          const res = await projectFireStore.collection('students').get()
+          this.studentsRecords = res.docs
+          console.log(this.studentsRecords)
+          this.studentsRecords.map( doc => {
+              console.log(doc.data())
+              this.desserts.push(doc.data());
+          })
+          console.log(this.desserts);
+        } catch (err) {
+            
+          this.error = err.message
+          console.log(this.error)
+
+        }
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

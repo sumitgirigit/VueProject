@@ -10,13 +10,13 @@ const getStudents = () => {
         try {
             
             const res = await projectFireStore.collection('students').get()
-            //console.log(res.docs[0].data())
+            console.log(res.docs)
             students.value = res.docs.map( doc => {
                 console.log(doc.data())
             })
 
         } catch (err) {
-
+            
             error.value = err.message
             console.log(error.value)
 
