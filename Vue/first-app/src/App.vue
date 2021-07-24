@@ -1,33 +1,23 @@
 <template>
   <div>
-    <v-card
-    flat
-    height="200px"
-    tile
-  >
-    <v-toolbar 
-      color= #21c4da
-      dense
+    <v-app id="inspire">
+    <v-navigation-drawer
+      v-model="drawer"
+      app
     >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <!--  -->
+    </v-navigation-drawer>
 
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Vuetify</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-    </v-toolbar>
-  </v-card>
-
-    <h1 class="header"> Vue App </h1>
+    </v-app-bar>
+cd
+    <v-main>
+      <!--  -->
+    </v-main>
+  </v-app>
     <HelloWorld />
-    
     <StudentsRecord class="studentrecord"/>
   </div>
 </template>
@@ -47,6 +37,7 @@ export default {
   data: function () {
     return {
       count: 0,
+      drawer: false,
     }
   },
 
